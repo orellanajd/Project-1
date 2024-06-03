@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calcular Factorial</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 300px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        p {
+            margin-top: 20px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calcular Factorial de un Número</h1>
+        <input type="number" id="numero" placeholder="Ingresa un número">
+        <button onclick="calcularFactorial()">Calcular Factorial</button>
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        function calcularFactorial() {
+            let numero = document.getElementById("numero").value;
+            numero = parseInt(numero); 
+            if (isNaN(numero)) {
+                document.getElementById("resultado").innerHTML = "Por favor, ingresa un número válido.";
+                return;
+            }
+
+            let factorial = 1;
+            let resultadoTexto = `${numero}! = `;
+            for (let i = numero; i > 1; i--) {
+                factorial *= i;
+                resultadoTexto += i + " * ";
+            }
+            resultadoTexto += "1 = " + factorial; 
+
+            document.getElementById("resultado").innerHTML = resultadoTexto;
+        }
+    </script>
+</body>
+</html>

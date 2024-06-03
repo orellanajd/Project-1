@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabla de Amortización</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 500px;
+        }
+        input[type="number"], button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: right;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tabla de Amortización de Préstamo</h1>
+        <input type="number" id="monto" placeholder="Monto del préstamo: Q" value="">
+        <input type="number" step="0.01" id="interes" placeholder="Tasa de interés mensual (%)" value="">
+        <input type="number" id="plazo" placeholder="Plazo en meses" value="">
+        <button onclick="generarTabla()">Generar Tabla de Amortización</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Periodo</th>
+                    <th>Saldo</th>
+                    <th>Interés</th>
+                    <th>Abono a Capital</th>
+                    <th>Pago Total</th>
+                </tr>
+            </thead>
+            <tbody id="tablaAmortizacion"></tbody>
+        </table>
+    </div>
+
+    <script>
+        function generarTabla() {
+            const monto = parseFloat(document.getElementById("monto").value);
+            const interes = parseFloat(document.getElementById("interes").value) / 100;
+            const plazo = parseInt(document.getElementById("plazo").value);
+
+            let saldo = monto;
+            let tabla = '';
+
+            for (let i = 1; i <= plazo; i++) {
+                const interesPago = saldo * interes;
+                const abonoCapital = monto / plazo;
+                const pagoTotal = interesPago + abonoCapital;
+                saldo -= abonoCapital;
+
+                tabla += `<tr>
+                            <td>${i}</td>
+                            <td>Q ${saldo.toFixed(2)}</td>
+                            <td>Q ${interesPago.toFixed(2)}</td>
+                            <td>Q ${abonoCapital.toFixed(2)}</td>
+                            <td>Q ${pagoTotal.toFixed(2)}</td>
+                          </tr>`;
+            }
+
+            document.getElementById("tablaAmortizacion").innerHTML = tabla;
+        }
+    </script>
+</body>
+</html>
